@@ -3,6 +3,7 @@
 .gradle
 *.iml
 buildOutputCleanup.lock
+*.lock
 # dependencies
 /node_modules
 /.pnp
