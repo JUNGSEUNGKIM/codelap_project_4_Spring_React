@@ -4,6 +4,7 @@
 *.iml
 buildOutputCleanup.lock
 *.lock
+build
 # dependencies
 /node_modules
 /.pnp
