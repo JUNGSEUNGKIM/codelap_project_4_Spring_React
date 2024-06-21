@@ -24,11 +24,16 @@ function Header(props) {
     //       }
     //     })
   }
+  const [isBoardListVisible, setBoardListVisible] = useState(false);
+
+  const toggleBoardList = () => {
+    setBoardListVisible(!isBoardListVisible);
+  };
 
   const navigate = useNavigate()
   return (
 
-      <div className="menubar">
+      <div className="menubar" style={{zIndex: "999"}}>
         <div className="menubar-content">
           <nav className="navbar navbar-default navbar-fixed-top">
             <div className="container">
@@ -85,38 +90,64 @@ function Header(props) {
                           toggleButton?setToggleButton(false):setToggleButton(true)
                           navigate('/personalized')}}>PERSONALIZED</a>
                       </li>
-                      <li>
-                        <a onClick={()=>{
-                          scrollToTop()
-                          toggleButton?setToggleButton(false):setToggleButton(true)
-                          // props.isLoggedIn?navigate('/boarder'):(alert("로그인을 해주세요"); alert(props.isLoggedIn); navigate('/login'))
+                      <li style={{ position: 'relative' ,zIndex: "999"}}>
+                        <a onClick={() => {
+                          scrollToTop();
+                          toggleButton ? setToggleButton(false) : setToggleButton(true);
                           if (props.isLoggedIn) {
-                            navigate('/boarder');
+                            isBoardListVisible ? setBoardListVisible(false) : setBoardListVisible(true)
                           } else {
                             alert("로그인을 해주세요");
                             navigate('/login');
                           }
-                          }}>BOARD</a>
-                      </li>
-                        {
-                          props.isLoggedIn ? (
-                              <React.Fragment>
-                                  <li><a onClick={()=>{
-                                    scrollToTop()
-                                    toggleButton?setToggleButton(false):setToggleButton(true)
-                                    logoutSession();
-                                    props.setIsLoggedIn(false);
-                                    props.setLoginId('');
-                                    props.setToken('');
-                                  }}>LOGOUT</a></li>
-                                  <li><a>{props.loginId} 님</a></li>
-                              </React.Fragment>
-                              ):(
-                              <li><a onClick={()=>{
+                        }}>BOARD
+                          <ul  style={{
+                            top: "100%",
+                            left: 0,
+                            backgroundColor: "#fff",
+                            zIndex: "999",
+                            display: isBoardListVisible ? "block" : "none" /* 상태에 따라 표시 여부 결정 */
+                          }}>
+                              <li><a onClick={() => {
                                 scrollToTop()
-                                toggleButton?setToggleButton(false):setToggleButton(true)
-                                navigate('/login')}}>LOGIN</a></li>)
-                        }
+                                toggleButton ? setToggleButton(false) : setToggleButton(true)
+                                navigate('/boarder');
+                              }}>BOARD</a></li>
+                              <li><a onClick={() => {
+                                scrollToTop()
+                                toggleButton ? setToggleButton(false) : setToggleButton(true)
+                                navigate('/boarder');
+                              }}>가현  BOARD</a></li>
+                              <li><a onClick={() => {
+                                scrollToTop()
+                                toggleButton ? setToggleButton(false) : setToggleButton(true)
+                                navigate('/boarder');
+                              }}>호진  BOARD</a></li>
+                          </ul>
+
+                        </a>
+
+                      </li>
+                      {
+                        props.isLoggedIn ? (
+                            <React.Fragment>
+                              <li><a onClick={() => {
+                                scrollToTop()
+                                toggleButton ? setToggleButton(false) : setToggleButton(true)
+                                logoutSession();
+                                props.setIsLoggedIn(false);
+                                props.setLoginId('');
+                                props.setToken('');
+                              }}>LOGOUT</a></li>
+                              <li style={{display: isBoardListVisible ? "none" : "block" }}><a>{props.loginId} 님</a></li>
+                            </React.Fragment>
+                        ) : (
+                            <li ><a onClick={() => {
+                              scrollToTop()
+                              toggleButton ? setToggleButton(false) : setToggleButton(true)
+                              navigate('/login')
+                            }}>LOGIN</a></li>)
+                      }
                       {/*<li>*/}
                       {/*  <a href="/#blog">Blog</a>*/}
                       {/*</li>*/}
