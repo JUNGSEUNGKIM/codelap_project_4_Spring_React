@@ -1,12 +1,50 @@
-import {useParams} from "react-router-dom";
-import React, {useEffect, useState} from "react";
-import App from "../App";
-
-import ChatWindow from './ChatWindow';
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import ChatWindow from "./ChatWindow";
 
 
 function ChatBotPage(props) {
+    const [question, setQuestion] = useState('');
+    const [chatHistory, setChatHistory] = useState('');
+    const [isFetching, setIsFetching] = useState(false);
+    const [dots, setDots] = useState('');
+
+    useEffect(() => {
+        if (isFetching) {
+            const interval = setInterval(() => {
+                setDots(dots => dots.length < 10 ? dots + '.' : '');
+            }, 500);
+            return () => clearInterval(interval);
+        }
+    }, [isFetching]);
+
+    const handleInputChange = (event) => {
+        setQuestion(event.target.value);
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (question.trim()) {
+            setIsFetching(true);
+            setChatHistory(prev => `${prev}\n상담자: ${question}`);
+            // alert("reponse check ::::: "+question)
+            try {
+                const response = await axios.post('http://localhost:5000/ere', { content: question },{withCredentials: true} );
+                // alert("reponse check :::::" + response.data)
+                if (response.data.status === 'success') {
+                    setChatHistory(prev => `${prev}\n쳇봇: ${response.data.answer}`);
+                } else {
+                    alert('Error: ' + response.data.message);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                setIsFetching(false);
+            }
+            setQuestion('');
+        }
+    };
+
     const [showChat, setShowChat] = useState(false);
     const [fullScreen, setFullScreen] = useState(false);
 
@@ -22,35 +60,26 @@ function ChatBotPage(props) {
     const closeFullScreen = () => {
         setFullScreen(false);
     };
+
     return (
-        // <div className="chat-body">
-        //     <div className="chat-container"></div>
-        <div>
-            {/* 작은 아이콘, 클릭 시 채팅창 표시 */}
-            {/*<ChatIcon onClick={toggleChat}/>*/}
+        <div className="App">
 
             <div
                 className="chat-icon"
-                onClick={()=>{toggleChat()}}
+                onClick={() => {
+                    toggleChat()
+                }}
 
-                style={{zIndex: '999',position: 'fixed', bottom: '20px', right: '20px', cursor: 'pointer'}}
+                style={{zIndex: '999', position: 'fixed', bottom: '20px', right: '20px', cursor: 'pointer'}}
             >
                 <img src="assets/img/chatbot.jpg" alt="Chat Icon" width="50" height="50"/>
             </div>
-
-            {/* 채팅창 */}
-            {/*{showChat && (*/}
-            {/*    // <ChatWindow*/}
-            {/*    //     onClose={toggleChat}*/}
-            {/*    //     onFullScreen={openFullScreen}*/}
-            {/*    //     style={{maxHeight: '600px'}} // 스크롤 추가*/}
-            {/*    // />*/}
             <div className="chat-window" style={{
                 cursor: 'pointer',
                 position: 'fixed',
                 bottom: '0',
                 marginBottom: '5%',
-                paddingBottom:'3%',
+                paddingBottom: '3%',
                 right: '0',
                 width: '300px',
                 height: '500px',
@@ -71,43 +100,29 @@ function ChatBotPage(props) {
                     cursor: 'pointer'
                 }}>X
                 </button>
-                {/* 채팅 내용 */}
-                <div className="chat-body" style={{
-                    marginBottom: '100px',
-                    position: 'fixed'
-                }}>
-
-                    <div className="chat-container"
-                         style={{overflowY: 'scroll', height: '320px', padding: '10px'}}>
-                        {/* 여기에 채팅 내용이 들어갈 수 있습니다 */}
-                        {/* 예시로 "채팅 내용"이라는 텍스트를 넣어줍니다 */}
-
-                    </div>
-                </div>
-                <div style={{height: '5%', marginBottom:'10%'}}></div>
 
 
-                {/* 채팅 입력창 */}
-                {/*<input type="text" style={{ width: '100%', padding: '10px', borderTop: '1px solid #ccc' }} placeholder="메시지를 입력하세요" />*/}
-
-                {/* 전체 화면으로 표시 버튼 */}
-                {/*<button onClick={onFullScreen} style={{ width: '100%', padding: '10px', backgroundColor: '#007bff', color: '#fff', border: 'none', cursor: 'pointer' }}>전체 화면으로 표시</button>*/}
-
-                {/* 닫기 버튼 */}
-
+                <h4>에리허브(EreHub) 챗봇</h4>
+                <textarea
+                    value={isFetching ? `응답중${dots}` : chatHistory}
+                    rows="14"
+                    cols="50"
+                    readOnly
+                />
+                <form onSubmit={handleSubmit}>
+                <textarea
+                    value={question}
+                    onChange={handleInputChange}
+                    placeholder="상담 내용을 여기에 입력하세요."
+                    rows="4"
+                    cols="50"
+                />
+                    <br/>
+                    <button type="submit">보내기</button>
+                </form>
             </div>
-
-
-            {/*)}*/}
-
-            {/* 전체 화면으로 표시되는 채팅창 */}
             {fullScreen && <ChatWindow onClose={closeFullScreen}/>}
-
-
         </div>
-        // </div>
-
-
     )
 }
 
