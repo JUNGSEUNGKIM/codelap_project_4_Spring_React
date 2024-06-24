@@ -1,4 +1,4 @@
-![image](https://github.com/JUNGSEUNGKIM/codelap_project_4_Spring_React/assets/154941779/ce84cc12-1e59-47ba-8705-07883889ba0b)## 목차
+## 목차
 
 ### -팀원소개
     
