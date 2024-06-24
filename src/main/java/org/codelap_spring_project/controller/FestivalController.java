@@ -256,5 +256,40 @@ public class FestivalController {
         return result;
     }
 
+    @GetMapping("locationrecommend")
+    public List<Map<String, Object>> getLocationRec(@RequestParam(required = false, defaultValue = "")String lat,
+                                             @RequestParam(required = false, defaultValue = "")String lon,
+                                             @RequestParam(required = false, defaultValue = "")String locPo){
+
+        if(lat!=null && lon!=null && locPo!=null){
+            List<FestivalImg> festivalImgs = festivalMapper.findLocationLonlat(lat,lon);
+            System.out.println(festivalImgs.get(0));
+
+            List<Map<String, Object>> boarderList = new ArrayList<>();
+
+            for (FestivalImg fes : festivalImgs) {
+                Map<String, Object> result = new HashMap<>();
+                result.put("FESTIVALID",fes.getFestivalid());
+                result.put("FESTIVALNAME",fes.getFestivalname());
+                result.put("LOCATION",fes.getLocation());
+                result.put("STARTDATE",fes.getStartdate());
+                result.put("ENDDATE",fes.getEnddate());
+                result.put("DESCRIPTION",fes.getDescription());
+                result.put("WEBSITE",fes.getWebsite());
+                result.put("ROADADDRESS",fes.getRoadaddress());
+                result.put("JIBUNADDRESS",fes.getJibunaddress());
+                result.put("LATITUDE",fes.getLatitude());
+                result.put("LONGITUDE",fes.getLongitude());
+                result.put("IMAGE_NAME",fes.getImage_name());
+                boarderList.add(result);
+            }
+            return boarderList;
+        }else {
+            return null;
+        }
+
+
+    }
+
 
 }

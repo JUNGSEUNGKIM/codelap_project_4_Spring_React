@@ -1,6 +1,111 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik:700&display=swap');
 
+.festival_info, .Eat_place_info, .market_info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    padding: 10px;
+    box-sizing: border-box;
+    transition: transform 0.5s ease;
+    flex-grow: 1;
+    border-radius: 0 0 5px 5px;
+}
+.mobileOnlyDetails {
+    display: none; /* 모바일 화면에서는 숨겨질 스타일 */
+}
+.festival_info:hover .festival_description,.market_description,.market_info:hover {
+    display: block;
+}
+.popular_box p {
+    margin: 5px 0;
+}
+.popular_box:hover .festival_description,.market_description .Eat_place_description{
+    max-height: 200px; /* 축제 내용이 확장되는 최대 높이 */
+    overflow-y: auto; /* 텍스트가 내용을 넘어갈 경우 스크롤바 추가 */
+}
+.popular_box:hover .hiddenOnHover {
+    max-height: 200px; /* 호버 시 텍스트가 확장되는 최대 높이 */
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤바 추가 */
+}
 
+@media (max-width: 768px) {
+    .popular_box {
+        width: 80%; /* 모바일에서는 너비 80%로 조절 */
+        margin: 5px auto; /* 상하 10px, 좌우 자동 */
+        height: 200px; /* 높이 조정 */
+
+    }
+    .randomButton,.moreButton {
+        display: none;
+    }
+    .popular_box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 이미지를 비율유지하며 박스에 맞게 조정 */
+        border-radius: 5px; /* 이미지 모서리 둥글게 */
+    }
+}
+.popular_box {
+    /*display: flex;*/
+    align-items: center;
+    /*justify-content: center;*/
+    text-align: center;
+    /*flex: 0 0 calc(25% - 20px); !* 모든 박스가 동일한 비율로 나누어짐 *!*/
+    margin: 10px;
+    /*height: 250px;*/
+    box-sizing: border-box;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    transition: all .7s;
+    border-radius: 5px;
+    position: relative; /* 상대 위치 설정 */
+}
+.popular_box:hover {
+    transform: scale(1.1); /* 확대 효과 */
+    z-index: 10; /* 다른 요소 위에 위치 */
+    background-color: #D6EAF8;
+}
+.popular_box:not(:hover) {
+    transform: scale(0.9); /* 나머지 박스는 축소 효과 */
+    opacity: 0.8; /* 투명도를 줄여 다른 박스 강조 */
+}
+.popular_box:hover .festival_info,
+.popular_box:hover .Eat_place_info,
+.popular_box:hover .market_info {
+    bottom: 0; /* 마우스를 올렸을 때 화면 하단에 고정 */
+}
+
+.popular_boxes_container {
+    /*display: flex;*/
+    /*flex-direction: row; !* 가로 방향으로 박스 배치 *!*/
+    /*justify-content: center; !* 왼쪽 정렬로 변경 *!*/
+    width: 100%;
+    transition: transform 0.3s ease; /* 부드러운 전환 효과 */
+}
+.festival_description,.market_description,.Eat_place_description {
+    max-height: 0; /* 초기에 숨겨진 상태 */
+    overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+    transition: max-height 0.3s ease; /* 부드러운 나타나기 효과 */
+}
+
+/* 마우스를 올렸을 때 축제 내용 표시 */
+.festival_info:hover .festival_description,.market_description,.market_info:hover {
+    display: block;
+}
+.popular_box:hover .festival_description,.market_description .Eat_place_description{
+    max-height: 200px; /* 축제 내용이 확장되는 최대 높이 */
+    overflow-y: auto; /* 텍스트가 내용을 넘어갈 경우 스크롤바 추가 */
+}
+.festival_name, .Eat_place_name, .market_name {
+    font-size: 14px; /* 일정한 크기로 설정 */
+    font-weight: bold; /* 글씨 굵기 */
+    margin-bottom: 10px; /* 아래 여백 */
+    transition: transform 0.5s ease; /* 슬라이드 모션 추가 */
+}
 
 .recommend {
     padding-top: 90px;
