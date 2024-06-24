@@ -30,7 +30,8 @@
 
 ---
 ### -페르소나
-   ![텍스트](codelap_project_4_Spring_React/이소희.png)
+   ![텍스트](codelap_project_4_Spring_React
+/이소희.png)
 ---
 
 ### 주요 서비스 제공
