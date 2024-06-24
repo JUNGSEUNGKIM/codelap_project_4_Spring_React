@@ -136,7 +136,7 @@ $(document).ready(function chatBotInit() {
         }
 
 
-        console.log(message)
+        // console.log(message)
     }
 
     // 초기 환영 메세지 출력

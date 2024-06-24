@@ -75,7 +75,7 @@ public class BoarderController {
         if(totalPages<MAX_PAGE_LIMIT){startPage=1;}
         int endPage = Math.min(startPage + MAX_PAGE_LIMIT -1, totalPages);
 
-//
+
         model.addAttribute("items", boarders);
         Map<String, Object> data = new HashMap<>();
         data.put("board", boarderList); // 배열 형태의 데이터 추가

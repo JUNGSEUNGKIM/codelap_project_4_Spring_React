@@ -116,8 +116,8 @@ function Header(props) {
                               <li><a onClick={() => {
                                 scrollToTop()
                                 toggleButton ? setToggleButton(false) : setToggleButton(true)
-                                navigate('/boarder');
-                              }}>가현  BOARD</a></li>
+                                navigate('/tourshop');
+                              }}>TOURSHOP</a></li>
                               <li><a onClick={() => {
                                 scrollToTop()
                                 toggleButton ? setToggleButton(false) : setToggleButton(true)

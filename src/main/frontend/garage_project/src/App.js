@@ -19,6 +19,8 @@ import DetailBoard from "./routes/detailBoard";
 import Festival from "./routes/Festival"
 import FestivalDetails from "./routes/FestivalDetails"
 import EventDetails from "./routes/EventDetails";
+import TourShop from "./routes/TourShop";
+import TourshopDetail from "./routes/TourshopDetail";
 
 
 import axios from "axios";
@@ -69,12 +71,14 @@ function App() {
               <Route path={"/home"} element={<PJmain token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               {/*<Route path={"/second"} element={<SecondPage imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId}/>}/>*/}
               <Route path={"/boarder"} element={<Boarder token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
+              <Route path={"/tourshop"} element={<TourShop token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               <Route path={"/login"} element={<Login token={token} setToken={setToken} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} setLoginId={setLoginId} setIsLoggedIn={setIsLoggedIn} apiUrl={apiURL}/>}/>
               <Route path={"/signup"} element={<SignUp token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} setLoginId={setLoginId} setIsLoggedIn={setIsLoggedIn} apiUrl={apiURL}/>}/>
               <Route path={"/festival"} element={<Festival token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               <Route path={"/create"} element={<Create token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               <Route path={"/personalized"} element={<Personalized  token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               <Route path={"/detailboard/:code"} element={<DetailBoard token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
+              <Route path={"/shopdetail/:code"} element={<TourshopDetail token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               <Route path={"/festivaldetails/:FestivalID"} element={<FestivalDetails token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               <Route path={"/eventdetails/:EVENTID"} element={<EventDetails  token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
           </Routes>
