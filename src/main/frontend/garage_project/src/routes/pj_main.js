@@ -5,6 +5,19 @@ import axios from "axios";
 import  {useNavigate, useParams} from "react-router-dom";
 
 const defaultImageUrl = 'https://www.eclosio.ong/wp-content/uploads/2018/08/default.png';
+const defaultImageUrlF = ['https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=82d75629-ca89-4d4d-85b9-5e8dae133e20&mode=raw',
+                        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=cb5ab904-aa43-45c2-a5fe-ff79102b1cf7&mode=raw',
+                        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=03701c87-65be-4ec7-b039-50a9c9bda2e7&mode=raw',
+                        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=7f000536-86d0-4a58-8aca-c65e2b97f32c&mode=raw',
+                        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=9cf52ccf-0692-4854-81a2-6c87f8a6d6f5&mode=raw',
+                        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=a310b6d9-a396-419b-9534-8aa6efe30f2c&mode=raw']
+// items.push( 'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=82d75629-ca89-4d4d-85b9-5e8dae133e20&mode=raw',main:'소희왕자 진자 멋있다',text:'특별한 체험이 있는 서울 고궁 야간개장',text1:'자세히 보기' })
+// items.push( { id: i, url: 'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=cb5ab904-aa43-45c2-a5fe-ff79102b1cf7&mode=raw',main:'데뷔 단체 사진',text:'특별한 체험이 있는 서울 고궁 야간개장',text1:'자세히 보기' })
+// items.push( { id: i, url: 'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=03701c87-65be-4ec7-b039-50a9c9bda2e7&mode=raw',main:'LOVE119' ,text:'특별한 체험이 있는 서울 고궁 야간개장',text1:'자세히 보기'  })
+// items.push( { id: i, url: 'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=7f000536-86d0-4a58-8aca-c65e2b97f32c&mode=raw',main:'LOVE119' ,text:'특별한 체험이 있는 서울 고궁 야간개장',text1:'자세히 보기'  })
+// items.push( { id: i, url: 'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=9cf52ccf-0692-4854-81a2-6c87f8a6d6f5&mode=raw',main:'LOVE119' ,text:'특별한 체험이 있는 서울 고궁 야간개장',text1:'자세히 보기'  })
+// items.push( { id: i, url: 'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=a310b6d9-a396-419b-9534-8aa6efe30f2c&mode=raw',main:'LOVE119' ,text:'특별한 체험이 있는 서울 고궁 야간개장',text1:'자세히 보기'  })
+
 const PJmain = (props) => {
     const navigate = useNavigate();
     const [festivals, setFestivals] = useState([]);
@@ -116,7 +129,7 @@ const PJmain = (props) => {
         if(randomFestival[i].IMAGE_NAME === null){
             randomFestival[i].IMAGE_NAME = 'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=82d75629-ca89-4d4d-85b9-5e8dae133e20&mode=raw';
         }
-        items.push({id:randomFestival[i].FESTIVALID, url:randomFestival[i].IMAGE_NAME.split(";")[0].split(":")[0]==="https"?randomFestival[i].IMAGE_NAME.split(";")[0]:props.imgURLJ+"/"+randomFestival[i].IMAGE_NAME.split(";")[0],main:randomFestival[i].LOCATION,text:randomFestival[i].FESTIVALNAME,text1:'자세히 보기'})
+        items.push({id:randomFestival[i].FESTIVALID, url:randomFestival[i].IMAGE_NAME===","?defaultImageUrlF[i%6]:randomFestival[i].IMAGE_NAME.split(";")[0].split(":")[0]==="https"?randomFestival[i].IMAGE_NAME.split(";")[0]:props.imgURLJ+"/"+randomFestival[i].IMAGE_NAME.split(";")[0],main:randomFestival[i].LOCATION,text:randomFestival[i].FESTIVALNAME,text1:'자세히 보기'})
         // items.push({id:randomFestival[i].FESTIVALID, url:props.imgURL+"/"+randomFestival[i].IMAGE_NAME.split(";")[0],main:randomFestival[i].LOCATION,text:randomFestival[i].FESTIVALNAME,text1:'자세히 보기'})
     }
 
@@ -490,7 +503,7 @@ const PJmain = (props) => {
                              onClick={() => navigate("/festivaldetails/" + festival.FESTIVALID)}>
 
                             <img
-                                src={festival.IMAGE_NAME && festival.IMAGE_NAME.split(";").length > 0 ? festival.IMAGE_NAME.split(";")[0].split(":")[0] === "https" ? festival.IMAGE_NAME.split(";")[0] : props.imgURLJ + "/" + festival.IMAGE_NAME.split(";")[0] : defaultImageUrl}
+                                src={festival.IMAGE_NAME===","?defaultImageUrlF[index%6]:festival.IMAGE_NAME && festival.IMAGE_NAME.split(";").length > 0 ? festival.IMAGE_NAME.split(";")[0].split(":")[0] === "https" ? festival.IMAGE_NAME.split(";")[0] : props.imgURLJ + "/" + festival.IMAGE_NAME.split(";")[0] : defaultImageUrl}
                                 // src={festival.IMAGE_NAME && festival.IMAGE_NAME.split(";").length > 0 ? props.imgURL + "/" + festival.IMAGE_NAME.split(";")[0] : defaultImageUrl}
                                 alt={festival.IMAGE_NAME.split(";")[0].split(":")[0]}
                                 style={{width: "100%", height: "100%"}}/>

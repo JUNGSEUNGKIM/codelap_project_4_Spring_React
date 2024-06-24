@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface FestivalMapper {
 
-
+    List<FestivalImg> findLocationLonlat(String lat, String lon);
     List<Festival> findAllFestival();
 
     List<Festival> findAllFestivalth();

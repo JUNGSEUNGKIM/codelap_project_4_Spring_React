@@ -19,98 +19,169 @@ function Personalized(props) {
     const [scvData, setCsvData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [festivalData, setfestivalData] = useState([]);
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            // 파일 내용을 읽어와서 상태에 설정
-            setCsvData(e.target.result);
-        };
-        reader.readAsText(file);
-    };
-    const [imgBox, setImgBox] = useState([])
+    const [recomendData, setRecomendData] = useState([]);
+
+    const [latlon, setLatlon] = useState({});
+    const [random,setRandom] = useState([]);
+    const [randomre, setRandomre] = useState([])
+    // let random=[]
+    // let randomre=[]
+
+
+    const getCurrentLocation = ()=>{
+        navigator.geolocation.getCurrentPosition((position) => {
+            let lat = 0;
+            let lon = 0;
+            let locPo = '';
+                lat = position.coords.latitude;
+                lon = position.coords.longitude;
+                locPo = '현재위치'
+            setLatlon({lat:lat,lon:lon,locPo:locPo})
+        },(error) => {
+            const locKorea=
+                {loc:'서울',lat:37.566330,lon:126.978451}
+            let lat = 0;
+            let lon = 0;
+            let locPo = '';
+            lat = locKorea.lat
+            lon = locKorea.lon
+            locPo = locKorea.loc
+            setLatlon({lat:lat,lon:lon,locPo:locPo})
+        })
+    }
+
+
+    function randomNum(){
+
+        let a=[]
+
+        if(festivalData.length > 0){
+            for (let i = 0; i < 5; i++) {
+                a[i] = Math.floor(Math.random() * festivalData.length);
+
+                // 중복된 값이 있는지 검사하여 중복 제거
+                for (let j = 0; j < i; j++) {
+                    while (a[j] === a[i]) {
+                        a[i] = Math.floor(Math.random() * festivalData.length);
+                        j = 0; // 처음부터 다시 검사
+                    }
+                }
+            }
+            setRandom(a)
+        }
+    }
+    function randomNumRE(){
+        let b=[]
+        if(recomendData.length > 0){
+            for (let i = 0; i < 5; i++) {
+                b[i] = Math.floor(Math.random() * recomendData.length);
+
+                // 중복된 값이 있는지 검사하여 중복 제거
+                for (let j = 0; j < i; j++) {
+                    while (b[j] === b[i]) {
+                        b[i] = Math.floor(Math.random() * recomendData.length);
+                        j = 0; // 처음부터 다시 검사
+                    }
+                }
+            }
+            setRandomre(b)
+        }
+    }
+
+
+
     useEffect(() => {
-        // getImage()
+
+        handleSubmit();
+        randomRecommend();
+        getCurrentLocation();
+
+
+
     }, []);
 
-    const { data: festivals, isLoading, isError } = useQuery(
-        ['getFestivalInfo'],
-        () => axios.get(props.apiUrl+'/festivals', { params: { loc:'전라남도'} })
-            .then(response => response.data)
-    );
-    console.log("festivals:::::::::",festivals)
+    async function handleSubmit(){
+            try {
+                console.log("userid::::::::::"+props.loginId)
+                const response = await axios.get('http://localhost:5000/recommendation'
+                    // ,{params: {user_id : props.loginId}}
+                    ,{params: {user_id : 'admin'}}
+                    ,{ withCredentials: true },{
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+                setRecomendData(response.data)
+                console.log(response.data)
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
 
-    // 각 버튼에 대한 박스 내용을 배열로 저장합니다.
-    const boxContentsByButton = {
-        "계절":[ ],
-        "지역":[ ],
-        "세트":[ ]
-    };
-    // let countImg = festivals.length>3?3:festivals.length
-    let countImg;
-    if (festivals) {
-        countImg = festivals.length > 3 ? 3 : festivals.length;
-    } else {
-        countImg = 0; // 또는 다른 기본값 설정
-    }
-    for(var i =0 ; i < countImg;i++){
-        boxContentsByButton["계절"].push(props.imgURL+"/"+festivals[i].ImageName.split(";")[0])
-        boxContentsByButton["지역"].push(props.imgURL+"/"+festivals[i].ImageName.split(";")[0])
-        boxContentsByButton["세트"].push(props.imgURL+"/"+festivals[i].ImageName.split(";")[0])
-
+            }
     }
 
+    async function locationRecommend(){
+        // event.preventDefault();
 
-    // 현재 선택된 버튼과 박스 내용을 관리합니다.
-    const [currentButton, setCurrentButton] = useState("계절");
-    const [currentBoxContents, setCurrentBoxContents] = useState(boxContentsByButton["계절"]);
+        try {
+            console.log("userid::::::::::"+props.loginId)
+            const response = await axios.get( props.javaServer+'festival/locationrecommend'
+                // ,{params: {user_id : props.loginId}}
+                ,{params:{lat:latlon.lat,
+                          lon:latlon.lon,
+                            locPo:latlon.locPo}}
+                ,{ withCredentials: true },{
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+            setfestivalData(response.data)
+            console.log(response.data)
+        } catch (error) {
+            alert('Error: ' + error.message);
+        } finally {
 
-    // 버튼 클릭 이벤트 핸들러
-    const handleButtonClick = (buttonName) => {
-        setCurrentButton(buttonName);
-        setCurrentBoxContents(boxContentsByButton[buttonName]);
-
+        }
     };
+
+    async function randomRecommend(){
+        // event.preventDefault();
+
+        try {
+            console.log("userid::::::::::"+props.loginId)
+            const response = await axios.get( props.javaServer+'festival/festival'
+                // ,{params: {user_id : props.loginId}}
+                // ,{params:{lat:latlon.lat,
+                //         lon:latlon.lon,
+                //         locPo:latlon.locPo}}
+                ,{ withCredentials: true },{
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+            setfestivalData(response.data)
+            console.log(response.data)
+        } catch (error) {
+            alert('Error: ' + error.message);
+        } finally {
+
+        }
+    };
+
 
     // 각 랜덤 박스에 대한 이미지 배열
-    const randomBoxImages = [
-        "https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=fa19901a-00db-4fc6-ba94-df851994cccc",
-        "https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=1229ae98-0815-45d4-8706-291f0d7282ea",
-        "https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=1b3d7ae2-d966-4ef5-a8c5-914fd897976f",
-        "https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=b7ba9199-c753-40ad-b8d5-f4838d3369e8",
-        "https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=e612abda-1147-4b57-92bb-becb935f3503",
-        "https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=cd737f78-bd8e-4f5d-9aa6-f016dde10db5",
-        "https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=88bacc90-37c5-4301-b8a4-2124b032f07f",
-        "https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=3a515ba7-d336-4b5a-a58f-8590b4cd23c6"
-    ];
-    // let countImg2 = festivals.length>5?5:festivals.length
-    // for(var i =0 ; i< countImg2;i++){
-    //
-    // }
-    // 4개의 랜덤 이미지를 선택
-    const shuffledImages = randomBoxImages.sort(() => Math.random() - 0.5);
-    // const selectedImages = shuffledImages.slice(0, 4);
 
-    // 4개의 랜덤 박스에 대한 이미지 배열
-    // const randomBoxImagesSubset = randomBoxImages.slice(0,4);
+    const defaultImageUrlF = [
+        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=82d75629-ca89-4d4d-85b9-5e8dae133e20&mode=raw',
+        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=cb5ab904-aa43-45c2-a5fe-ff79102b1cf7&mode=raw',
+        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=03701c87-65be-4ec7-b039-50a9c9bda2e7&mode=raw',
+        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=7f000536-86d0-4a58-8aca-c65e2b97f32c&mode=raw',
+        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=9cf52ccf-0692-4854-81a2-6c87f8a6d6f5&mode=raw',
+        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=a310b6d9-a396-419b-9534-8aa6efe30f2c&mode=raw']
 
-    // 랜덤 박스의 이미지를 관리하는 상태
-    const [boxImages, setBoxImages] = useState(randomBoxImages);
-
-    // "다시 추천 받기" 버튼 클릭 이벤트 핸들러
-    const handleReloadImages = () => {
-        // 랜덤 이미지 선택을 위해 배열 복사
-        const shuffledImages = [...randomBoxImages];
-        // 배열 섞기
-        for (let i = shuffledImages.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffledImages[i], shuffledImages[j]] = [shuffledImages[j], shuffledImages[i]];
-        }
-        // 처음 4개의 이미지 선택
-        const selectedImages = shuffledImages.slice(0, 5);
-        // 상태 업데이트
-        setBoxImages(selectedImages);
-    };
 
     const InfoOverlay = styled.div`
     position: absolute;
@@ -148,48 +219,62 @@ function Personalized(props) {
     }
 `;
 
-    console.log("festivals::::::::::::::::::::",festivals)
+    const defaultImageUrl = 'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=82d75629-ca89-4d4d-85b9-5e8dae133e20&mode=raw';
 
+    // alert(random+randomre)
+
+
+    useEffect(()=>{
+        randomNum();
+
+    },[festivalData])
+    useEffect(()=>{
+        randomNumRE();
+    },[recomendData])
     return (
         <div>
-            {/*/!* 파일 선택을 위한 input 엘리먼트 *!/*/}
-            {/*<input type="file" onChange={handleFileChange} />*/}
-            {/*/!* 파일 내용을 표시하는 부분 *!/*/}
-            {/*{csvData !== null&& (*/}
-            {/*    <div>*/}
-            {/*        <h2>CSV 파일 내용:</h2>*/}
-            {/*        <pre>{csvData}</pre>*/}
-            {/*    </div>*/}
-            {/*)}*/}
             <div className={styles.mainContainer} >
-
                 <div className={styles.recommend}>
                     <div className={styles.recommend_title_container}>
                         <div className={styles.recommend_main_title}> GARAGE 추천 축제</div>
                         <div className={styles.recommend_sub_title}> GARAGE에서 추천하는 축제입니다.</div>
                     </div>
                     <div className={styles.recommend_button_container}>
-                        {/* 버튼들에 대한 매핑과 클릭 이벤트 핸들링을 설정합니다. */}
-                        {Object.keys(boxContentsByButton).map(buttonName => (
-                            <div key={buttonName} className={styles.recommend_button_div}>
-                                <button className={styles.recommend_button} onClick={() => handleButtonClick(buttonName)}>{buttonName}</button>
+                            <div  className={styles.recommend_button_div}>
+                                <button className={styles.recommend_button} onClick={randomRecommend} style={{minWidth:"120px",width:"30%" }}>좋아요</button>
                             </div>
-                        ))}
-                    </div>
-                    <div className={styles.recommend_boxes_container}>
-                        {/* 현재 선택된 버튼에 따라 박스 내용을 출력합니다. */}
+                            <div  className={styles.recommend_button_div}>
+                                 <button className={styles.recommend_button} onClick={locationRecommend} style={{minWidth:"120px",width:"30%" }}>지역</button>
+                             </div>
+                            <div  className={styles.recommend_button_div}>
+                                <button className={styles.recommend_button} style={{minWidth:"120px",width:"30%" }}>교통</button>
+                            </div>
+                </div>
 
-                        {currentBoxContents.map((content, index) => (
-                            // <InfoOverlay>
-                                /*<InfoText>*/
-                                    <div key={index} className={styles.recommend_box}>
-                                    <img src={content} alt={`Box ${index + 1}`} />
+                <div className={styles.recommend_boxes_container}>
+                    {festivalData.map((festival, index) => (
+                        index === random[0] || index === random[1] || index === random[2] ?
+                            <div className={styles.popular_boxes_container} >
+                                <div key={index} className={styles.popular_box}>
+                                <div key={index} className={styles.recommend_box}>
+                                    <img onClick={()=>navigate(`/festivaldetails/${festival.FESTIVALID}`)}
+                                        src={festival.IMAGE_NAME === "," ? defaultImageUrlF[index%4] : festival.IMAGE_NAME.split(";")[0].split(":")[0] === "https" ? festival.IMAGE_NAME.split(";")[0] : props.imgURLJ + festival.IMAGE_NAME.split(";")[0]}
+                                        alt={`Box ${index + 1}`} />
+                                    <div className={styles.festival_info} style={{display:"block"}} >
+                                        <p className={styles.festival_name} style={{display:"block", textAlign:"center"}}>{festival.FESTIVALNAME}</p>
+                                        <div className={styles.mobileOnlyDetails}>
+                                            <p>{festival.LOCATION}</p>
+                                            <p>{festival.STARTDATE} ~ {festival.ENDDATE}</p>
+                                            <p className={`${styles.festival_description} ${styles.hidden}`}>{festival.STARTDATE}</p>
+                                        </div>
+                                        <p className={`${styles.festival_description} ${styles.hiddenOnHover}`} style={{textAlign:"center"}}>{festival.DESCRIPTION} </p>
                                     </div>
-                                /*</InfoText>*/
-                            /*</InfoOverlay>*/
-                        ))}
-
-                    </div>
+                                </div>
+                                </div>
+                            </div>
+                                : null
+                    ))}
+                </div>
                 </div>
 
                 <div className={styles.custom}>
@@ -198,17 +283,36 @@ function Personalized(props) {
                         <div className={styles.custom_sub_title}>성향에 따른 맞춤형 여행지를 추천해 드립니다.</div>
                     </div>
                     <div className={styles.custom_boxes_container}>
-                        {/* 랜덤 박스 이미지 표시 */}
-                        {boxImages.map((image, index) => ( // selectedImages 대신 boxImages 사용
-                            <div key={index} className={styles.custom_box}>
-                                <img src={image} alt={`Random Box ${index + 1 }`} />
+
+                        {recomendData.map((festival_re, index) => ( // selectedImages 대신 boxImages 사용
+                            index === randomre[0] || index === randomre[1] || index === randomre[2]|| index === randomre[3] || index === randomre[4] ?
+                            <div className={styles.popular_boxes_container}>
+                                <div key={index} className={styles.popular_box}>
+                                    <div key={index} className={styles.recommend_box}>
+                                        <img onClick={() => navigate(`/festivaldetails/${festival_re.FESTIVALID}`)}
+                                             src={festival_re.IMAGE_NAME === "," ? defaultImageUrlF[index%4] : festival_re.IMAGE_NAME.split(";")[0].split(":")[0] === "https" ? festival_re.IMAGE_NAME.split(";")[0] : props.imgURLJ + festival_re.IMAGE_NAME.split(";")[0]}
+                                             alt={`Box ${index + 1}`}/>
+                                        <div className={styles.festival_info} style={{display: "block"}}>
+                                            <p className={styles.festival_name} style={{
+                                                display: "block",
+                                                textAlign: "center"
+                                            }}>{festival_re.FESTIVALNAME}</p>
+                                            <div className={styles.mobileOnlyDetails}>
+                                                <p>{festival_re.LOCATION}</p>
+                                                <p>{festival_re.STARTDATE} ~ {festival_re.ENDDATE}</p>
+                                                <p className={`${styles.festival_description} ${styles.hidden}`}>{festival_re.STARTDATE}</p>
+                                            </div>
+                                            <p className={`${styles.festival_description} ${styles.hiddenOnHover}`}
+                                               style={{textAlign: "center"}}>{festival_re.DESCRIPTION} </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                                :null
                         ))}
                     </div>
                     <div>
-                        {/*<div className={styles.custom_button_div}>*/}
-                        <button className={styles.custom_button} onClick={handleReloadImages} > 다시 추천 받기 </button>
-                        {/*</div>*/}
+                        <button className={styles.custom_button} onClick={handleSubmit}> 다시 추천 받기</button>
                     </div>
                 </div>
 

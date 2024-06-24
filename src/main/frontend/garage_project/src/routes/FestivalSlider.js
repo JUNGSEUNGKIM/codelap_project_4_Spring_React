@@ -5,7 +5,12 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import {useNavigate} from "react-router-dom";
 
-
+const defaultImageUrlF = ['https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=82d75629-ca89-4d4d-85b9-5e8dae133e20&mode=raw',
+    'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=cb5ab904-aa43-45c2-a5fe-ff79102b1cf7&mode=raw',
+    'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=03701c87-65be-4ec7-b039-50a9c9bda2e7&mode=raw',
+    'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=7f000536-86d0-4a58-8aca-c65e2b97f32c&mode=raw',
+    'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=9cf52ccf-0692-4854-81a2-6c87f8a6d6f5&mode=raw',
+    'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=a310b6d9-a396-419b-9534-8aa6efe30f2c&mode=raw']
 const Container = styled.div`
   //overflow:hidden;
 `;
@@ -147,7 +152,7 @@ const FestivalSlider = ( myProp ) => {
                 {myProp.myProp && myProp.myProp.length > 0 ? (
                     <StyledSlider {...settings}
                     >
-                        {myProp.myProp && myProp.myProp.map(festival=> {
+                        {myProp.myProp && myProp.myProp.map((festival, index)=> {
                             return (
                                 <div key={festival.id}
                                      onMouseEnter={() => handleMouseEnter(festival.FestivalID)}
@@ -155,7 +160,7 @@ const FestivalSlider = ( myProp ) => {
                                 >
                                     <ImageContainer>
 
-                                        <Image src={festival.ImageName===null||festival.ImageName.split(";")[0]===""?'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=82d75629-ca89-4d4d-85b9-5e8dae133e20&mode=raw':festival.ImageName.split(";")[0].split(":")[0]==="https"?festival.ImageName.split(";")[0]:myProp.imgURL+"/"+festival.ImageName.split(";")[0]}/>
+                                        <Image src={festival.ImageName===","?defaultImageUrlF[Math.floor(Math.random()*6)]:festival.ImageName===null||festival.ImageName.split(";")[0]===""?'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=82d75629-ca89-4d4d-85b9-5e8dae133e20&mode=raw':festival.ImageName.split(";")[0].split(":")[0]==="https"?festival.ImageName.split(";")[0]:myProp.imgURL+"/"+festival.ImageName.split(";")[0]}/>
                                             <InfoOverlay show={hoveredFestivalId  === festival.FestivalID}>
                                                 <InfoText>
                                                     {/*{overlayContent.zone}*/}
