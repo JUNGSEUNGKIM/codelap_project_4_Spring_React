@@ -65,13 +65,14 @@
         WHERE s.shopId = #{id}
     </select>
 
-    <select id="detailBoardComment" parameterType="String" resultMap="commentResultMap">
-        SELECT c.comment_id, c.boarder_code, c.content, u.id AS author, TO_CHAR(c.create_at, 'YYYY-MM-DD HH:MM') AS create_at, c.parent_comment_id
-        FROM boarder_comments c
-                 JOIN users u ON c.user_id = u.id
-        WHERE c.boarder_code = #{id}
-        ORDER BY c.comment_id
-    </select>
+
+<!--    <select id="detailBoardComment" parameterType="String" resultMap="commentResultMap">-->
+<!--        SELECT c.comment_id, c.boarder_code, c.content, u.id AS author, TO_CHAR(c.create_at, 'YYYY-MM-DD HH:MM') AS create_at, c.parent_comment_id-->
+<!--        FROM boarder_comments c-->
+<!--                 JOIN users u ON c.user_id = u.id-->
+<!--        WHERE c.boarder_code = #{id}-->
+<!--        ORDER BY c.comment_id-->
+<!--    </select>-->
 
 
 
