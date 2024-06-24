@@ -30,8 +30,12 @@
 
 ---
 ### -페르소나
-   ![텍스트](codelap_project_4_Spring_React
-/이소희.png)
+   ![이소희](https://github.com/JUNGSEUNGKIM/codelap_project_4_Spring_React/assets/154941779/bc64a0d0-1250-4d47-9302-1e20e64a87fa)
+   ![신민아](https://github.com/JUNGSEUNGKIM/codelap_project_4_Spring_React/assets/154941779/58f2bb2d-d389-41c5-b07a-89c12aeeed9f)
+   ![애견 부부](https://github.com/JUNGSEUNGKIM/codelap_project_4_Spring_React/assets/154941779/500e51e6-006b-4f8f-883c-c88a3f234b94)
+   ![아기 부부](https://github.com/JUNGSEUNGKIM/codelap_project_4_Spring_React/assets/154941779/18082998-9aed-4670-81f7-e254807c9496)
+   ![화면 캡처 2024-06-24 202615](https://github.com/JUNGSEUNGKIM/codelap_project_4_Spring_React/assets/154941779/6f5b12f3-54a5-47d4-934d-7ec1e05fc043)
+
 ---
 
 ### 주요 서비스 제공
