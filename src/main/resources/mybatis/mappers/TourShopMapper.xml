@@ -5,17 +5,12 @@
 
 <mapper namespace="org.codelap_spring_project.repository.mybatis.TourShopMapper">
 
-    <resultMap id="shopResultMap" type="org.codelap_spring_project.domain.Boarder">
-        <result property="boarder_code" column="boarder_code" />
-        <result property="author" column="author" />
-        <result property="title" column="title" />
-        <result property="created_at" column="created_at" />
+    <resultMap id="shopResultMap" type="org.codelap_spring_project.domain.Tourshop">
+        <result property="shopId" column="shopId" />
+        <result property="tourTitle" column="tourTitle" />
         <result property="content" column="content"  />
-        <result property="views" column="views" />
-        <result property="likes" column="likes" />
-        <result property="image_path" column="image_path" />
-        <result property="image_name" column="image_name" />
-        <result property="festivalname" column="festivalname" />
+        <result property="imagePath" column="imagePath" />
+        <result property="imageName" column="imageName" />
     </resultMap>
 
     <resultMap id="tourShopMainResultMap" type="org.codelap_spring_project.domain.TourshopMain">
@@ -28,16 +23,20 @@
         <result property="reviews_count" column="reviews_count" />
     </resultMap>
 
-<!--    <resultMap id="commentResultMap" type="org.codelap_spring_project.domain.Comment">-->
-<!--        <result property="comment_id" column="comment_id" />-->
-<!--        <result property="boarder_code" column="boarder_code" />-->
-<!--        <result property="content" column="content" />-->
-<!--        <result property="author" column="author" />-->
-<!--        <result property="create_at" column="create_at"  />-->
-<!--        <result property="parent_comment_id" column="parent_comment_id" />-->
-<!--    </resultMap>-->
-<!--    -->
+    <resultMap id="reviewResultMap" type="org.codelap_spring_project.domain.TourshopReview">
+        <result property="comment_id" column="comment_id" />
+        <result property="boarder_code" column="boarder_code" />
+        <result property="content" column="content" />
+        <result property="author" column="author" />
+        <result property="create_at" column="create_at"  />
+        <result property="parent_comment_id" column="parent_comment_id" />
+    </resultMap>
 
+
+<!-- 시퀀스 가져오기 -->
+    <select id="getSequence" resultType="String">
+        SELECT  TOURSHOP_SEQ.NEXTVAL FROM DUAL
+    </select>
 
 <!-- TOURSHOP MAIN-->
     <select id="totalPage" >
@@ -57,22 +56,31 @@
         WHERE rn BETWEEN #{startRow} AND #{endRow}]]>
     </select>
 
-<!--  TOURSHOP  -->
-    <select id="tourshopdetail" parameterType="String" resultMap="shopResultMap">
-        SELECT s.shopId, s.tourTitle, s.content, s.imagePath, s.imageName, f.festivalname
-        FROM TOURSHOP s
-                 JOIN FESTIVALS f on s.festivalid = f.festivalid
-        WHERE s.shopId = #{id}
+<!--  상세페이지 -->
+    <select id="shopDetail" parameterType="String" resultMap="shopResultMap">
+        SELECT shopId, imagePath, imageName, tourTitle, content, tourPrice, location
+        FROM TOURSHOP
+        WHERE shopId = #{id}
     </select>
 
 
-<!--    <select id="detailBoardComment" parameterType="String" resultMap="commentResultMap">-->
-<!--        SELECT c.comment_id, c.boarder_code, c.content, u.id AS author, TO_CHAR(c.create_at, 'YYYY-MM-DD HH:MM') AS create_at, c.parent_comment_id-->
-<!--        FROM boarder_comments c-->
-<!--                 JOIN users u ON c.user_id = u.id-->
-<!--        WHERE c.boarder_code = #{id}-->
-<!--        ORDER BY c.comment_id-->
+<!--  상세페이지 리뷰 -->
+<!--    <select id="shopDetailReview" parameterType="String" resultMap="reviewResultMap">-->
+<!--        SELECT r.reviewId, r.shopId, r.content, u.id AS author, TO_CHAR(r.create_at, 'YYYY-MM-DD HH:MM') AS create_at, r.parent_comment_id-->
+<!--        FROM  TOURSHOPREVIEW r-->
+<!--                 JOIN users u ON r.userId = u.id-->
+<!--        WHERE r.shopId = #{id}-->
+<!--        ORDER BY r.reviewId-->
 <!--    </select>-->
+
+
+<!--  상품등록  -->
+    <insert id="addProduct" parameterType="org.codelap_spring_project.domain.TourshopInsert">
+        INSERT INTO TOURSHOP (shopId, imageName, imagePath, tourTitle, content, tourPrice,
+                             location  )
+        VALUES(#{shopId}, #{imageName}, #{imagePath}, #{tourTitle}, #{content}, #{tourPrice},
+               #{location})
+    </insert>
 
 
 

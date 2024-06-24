@@ -14,6 +14,7 @@ import SignUp from "./routes/signUp"
 // import RecommendPage from "./routes/recommendPage";
 import PJmain from "./routes/pj_main";
 import Create from "./routes/create";
+import Add from "./routes/Add";
 import Personalized from "./routes/personalized";
 import DetailBoard from "./routes/detailBoard";
 import Festival from "./routes/Festival"
@@ -76,6 +77,7 @@ function App() {
               <Route path={"/signup"} element={<SignUp token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} setLoginId={setLoginId} setIsLoggedIn={setIsLoggedIn} apiUrl={apiURL}/>}/>
               <Route path={"/festival"} element={<Festival token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               <Route path={"/create"} element={<Create token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
+              <Route path={"/add"} element={<Add token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               <Route path={"/personalized"} element={<Personalized  token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               <Route path={"/detailboard/:code"} element={<DetailBoard token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               <Route path={"/shopdetail/:code"} element={<TourshopDetail token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>

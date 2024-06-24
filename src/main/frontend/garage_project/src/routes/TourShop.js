@@ -81,7 +81,7 @@ function TourShop(props){
                                                      style={{maxHeight:"35em", minHeight:"35em"}}>
                                                     <div className="service-head">
                                                         <a onClick={() => {
-                                                            navigate("/svshopdetail/"+shop[0])
+                                                            navigate("/shopdetail/"+shop[0])
                                                         }}>
                                                             <img
                                                                 src={shop[1]==null?'https://toeic.ybmclass.com/toeic/img/noimage.gif':shop[1].split(';')[0]!=null?
@@ -95,7 +95,7 @@ function TourShop(props){
                                                     </div>
                                                     <div className="service-bottom">
                                                         <a onClick={() => {
-                                                            navigate("/svshopdetail/"+shop[0])
+                                                            navigate("/shopdetail/"+shop[0])
                                                         }}>
                                                             <h3> {shop[2]}&nbsp;&nbsp;{shop[6]}</h3>
                                                         </a>

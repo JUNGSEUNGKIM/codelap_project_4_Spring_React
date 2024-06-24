@@ -1,25 +1,23 @@
 package org.codelap_spring_project.domain;
 
-public class Tourshop {
+public class TourshopInsert {
+
     private String shopId;
-    private String imagePath;
     private String imageName;
+    private String imagePath;
     private String tourTitle;
     private String content;
     private String tourPrice;
     private String location;
 
-    public Tourshop(String shopId, String imagePath, String imageName, String tourTitle, String content, String tourPrice, String location) {
+    public TourshopInsert(String shopId, String imageName, String imagePath, String tourTitle, String content, String tourPrice, String location, String festivalId) {
         this.shopId = shopId;
-        this.imagePath = imagePath;
         this.imageName = imageName;
+        this.imagePath = imagePath;
         this.tourTitle = tourTitle;
         this.content = content;
         this.tourPrice = tourPrice;
         this.location = location;
-    }
-
-    public Tourshop() {
     }
 
     public String getShopId() {
@@ -30,20 +28,20 @@ public class Tourshop {
         this.shopId = shopId;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
     public String getImageName() {
         return imageName;
     }
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getTourTitle() {
