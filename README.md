@@ -1,4 +1,4 @@
-## 목차
+![image](https://github.com/JUNGSEUNGKIM/codelap_project_4_Spring_React/assets/154941779/68412f6e-3bc3-4419-be2b-195d4a37700a)## 목차
 
 ### -팀원소개
     
@@ -8,7 +8,7 @@
 | 노가현 |    nodejs, Nginx, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
 | 배호진 |    nodejs, Nginx, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
 | 배은지 |    nodejs, Nginx, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
-| 이은진진 |    nodejs, Nginx, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
+| 이은진 |    nodejs, Nginx, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
 
 <a href="https://github.com/JUNGSEUNGKIM/codelap_allola/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=JUNGSEUNGKIM/codelap_allola" />
@@ -23,7 +23,7 @@
 ---
     
 ### 프로젝트개요
-+ 기간 : 2024.03.29(금) ~ 2024.05.08(수)
++ 기간 : 2024년 5월 20일(월) ~ 2024년 6월 25일(화)
 + 주제 :  대한민국 구석구석 축제, 공연, 맛집, 시장을 소개하며 국내 여행 코스를 제공, 유저들끼리 소통할 수 있는 웹 서비스 제작
 + 선정이유 : 기존 한공광관공사에서 운영하고 있는 사이트(대한민국 구석구석)을 분석하여, 보완할 부분을 찾아서 제작 선정
 + (기존)사이트 보완점 : 주변 시장, 맛집도 함께 제공하여 사용자들과 소통할 수 있는 게시판 구성
@@ -39,18 +39,75 @@
 ---
 
 ### 주요 서비스 제공
+*  주요 기능 소개-  
+    1. 축제 및 이벤트 정보
+        - 주요 지역 시장 축제 일정 및 세부사항 제공
+        - 각 축제의 주제, 참여 가능한 활동 및 특별 이벤트 소개
+        - 축제 참가 신청 정보 제공
 
+    2. 맛집 정보
+        - 지역내 다양한 신도락 명소
+        - 추천메뉴와 인기도 순위
+        - 사용자 리뷰와 사진을 통한 맛집 후기  
+
+    3. 공연 및 문화
+        - 행사 공연, 전시회, 문화 행사 일정과 장소 안내
+        - 행사의 예술적 성향, 작품 소개
+        - 티켓 예매 및 입장 정보 제공    
+       
+    4. 편의 시설 정보
+        - 공공장소의 주차 시설, 화장실 위치 등 편의 시설 
+        - 유아를 위한 수유공간
+        - 반려견 동반 가능한 장소와 관련 편의 시설  
+       
 ---
 
 ### 개발 단계
+
+![개발 단계](https://github.com/JUNGSEUNGKIM/codelap_project_4_Spring_React/assets/154941779/f2982686-2bbf-401d-9021-3545f07803a4)
 
 ---
 
 ### 프로젝트 일정
 
+*  5주 프로젝트 시작! -  
+    1. 프로젝트 기획 및 요구사항 분석
+        - 프로젝트 개요 및 목표 정의
+        - 주요 기능 및 요구사항 수집
+        - 페르소나 설정 및 사용자 분석
+        - 프로젝트 일정 및  작업 분담 계획 수립
+
+    2. 디자인 및 설계
+        - 정보 구조 설계
+        - 와이어프레임 및 프로토타입 제작
+        - 사용자 인터페이스 디자인
+        - 데이터 베이스 설계
+        - 시스템 아키텍처 설계  
+
+    3. 프론트엔드 개발
+        - 주요 페이지 개발(홈, 로그인, 게시판, 정보 페이지 등)
+        - 사용자 인터페이스 및 사용자 경험 구현
+        - 반응형 웹 디자인 적 
+       
+    4. 백엔드 개발
+        - 서버 및 데이터베이스 설정 
+        - 사용자 인증 및 권한 관리 시스템 개발
+        - 정보 크롤링 및 데이터 수집 기능 개발
+        - 게시판 및 커뮤니티 기능 개
+      
+    5. 통합 및 테스트
+        - 프론트엔드와 백엔드 통합 
+        - 기능별 테스트 및 디버깅
+        - 사용자 테스트
+        - 피드백 반영 및 최종 수정
+        - 프로젝트 최종 점검 및 배포 준  
+          
+
 ---
 
 ### 팀소개
+
+![팀소개](https://github.com/JUNGSEUNGKIM/codelap_project_4_Spring_React/assets/154941779/bab8c19f-4809-429f-8552-688ceaa25d92)
 
 ---
 
