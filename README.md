@@ -195,6 +195,8 @@
   +  사용자가 시장, 축제, 맛집 중 하데이터를 필터링하여 원하는 결과를 얻을 수 있도록 기능을 제공
   +  실시간 날씨 데이터
 
+![메인화면](https://github.com/JUNGSEUNGKIM/codelap_project_4_Spring_React/assets/154941779/4ec2830f-bc7a-481c-a848-7f4a617e10f2)
+
 * 이은진 -  
   +  데이터베이스 연결 설정 및 'Restaurants’ 테이블에서 데이터 추출
   +  각 맛집의 주소가 이름으로 검색 및 크롤링
