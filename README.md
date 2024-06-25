@@ -20,8 +20,8 @@
 <img src="https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"/>
 ---
 
-<a href="https://github.com/JUNGSEUNGKIM/codelap_allola/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=JUNGSEUNGKIM/codelap_allola" />
+<a href="https://github.com/JUNGSEUNGKIM/codelap_project_4_Spring_React/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=JUNGSEUNGKIM/codelap_project_4_Spring_React" />
 </a>
 
 <a href="http://3.143.252.195:3000/mainPage">
