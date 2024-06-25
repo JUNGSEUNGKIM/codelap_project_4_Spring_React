@@ -95,29 +95,29 @@ public class TourShopController {
         }
         Map<String, Object> data = new HashMap<>();
         List<Tourshop> shopResult = tourShopMapper.shopDetail(id);
-//        List<TourshopReview> reviewResult = tourShopMapper.shopDetailReview(id);
+        List<TourshopReview> reviewResult = tourShopMapper.shopDetailReview(id);
         List<TourshopReview> reviews = new ArrayList<>();
         Map<String, TourshopReview> reviewMap = new HashMap<>();
 
-//        for (TourshopReview row : reviewResult) {
-//
-//            // 리뷰 댓글 저장하는 리스트
-//            String parentId = row.getParent_comment_id();
-//
-//            if (parentId == null) {
-//                reviewMap.put(row.getReviewId(), row);
-//                reviews.add(row);
-//            } else {
-//                List<TourshopReview> childComment = new ArrayList<>();
-//
-//                childComment.add(row);
-//                reviewMap.get(parentId).setChildren(childComment);
-//            }
-//        }
-        System.out.println("reviews:::" + reviews);
+        for (TourshopReview row : reviewResult) {
 
-        data.put("shop ", shopResult.get(0));
-        data.put("reviews ", reviews);
+            // 리뷰 댓글 저장하는 리스트
+            String parentId = row.getParent_comment_id();
+
+            if (parentId == null) {
+                reviewMap.put(row.getReviewId(), row);
+                reviews.add(row);
+            } else {
+                List<TourshopReview> childComment = new ArrayList<>();
+
+                childComment.add(row);
+                reviewMap.get(parentId).setChildren(childComment);
+            }
+        }
+//        System.out.println("reviews:::" + reviews);
+
+        data.put("shop", shopResult.get(0));
+        data.put("reviews", reviews);
 
 
         return data;

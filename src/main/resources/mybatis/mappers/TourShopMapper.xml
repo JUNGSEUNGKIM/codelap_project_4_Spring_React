@@ -65,13 +65,13 @@
 
 
 <!--  상세페이지 리뷰 -->
-<!--    <select id="shopDetailReview" parameterType="String" resultMap="reviewResultMap">-->
-<!--        SELECT r.reviewId, r.shopId, r.content, u.id AS author, TO_CHAR(r.create_at, 'YYYY-MM-DD HH:MM') AS create_at, r.parent_comment_id-->
-<!--        FROM  TOURSHOPREVIEW r-->
-<!--                 JOIN users u ON r.userId = u.id-->
-<!--        WHERE r.shopId = #{id}-->
-<!--        ORDER BY r.reviewId-->
-<!--    </select>-->
+    <select id="shopDetailReview" parameterType="String" resultMap="reviewResultMap">
+        SELECT r.reviewId, r.shopId, r.review, u.id AS author, TO_CHAR(r.created_at, 'YYYY-MM-DD HH:MM') AS create_at, r.parent_comment_id
+        FROM  TOURSHOPREVIEW r
+                 JOIN users u ON r.userId = u.id
+        WHERE r.shopId = #{id}
+        ORDER BY r.reviewId
+    </select>
 
 
 <!--  상품등록  -->

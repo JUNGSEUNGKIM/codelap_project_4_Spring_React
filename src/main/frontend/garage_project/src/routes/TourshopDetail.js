@@ -20,9 +20,16 @@ function TourshopDetail(props) {
 
     const fetchData = async () => {
         const result = await axios.get(props.javaServer + `tourshop/svshopdetail/` + code, {params:{userId:props.loginId}},  { withCredentials: true });
-        setResultQue(result.data);
-        resultQue ? setTrueResult(true) : setTrueResult(false)
-        console.log( result.data.shop)
+        // setResultQue(result.data);
+        // resultQue ? setTrueResult(true) : setTrueResult(false)
+        // console.log(result.data)
+        if (result.data) {
+            setResultQue(result.data)
+            setTrueResult(true);
+            console.log(result.data);
+        } else {
+            setTrueResult(false);
+        }
         scrollToTop();
     };
 
@@ -35,6 +42,25 @@ function TourshopDetail(props) {
     useEffect(() => {
         console.log(resultQue); // resultQue가 업데이트될 때마다 실행됨
     }, [resultQue]);
+
+    // // resultQue이 정의되었는지 확인 후, 속성을 변수로 할당하여 사용
+    // let tourTitle = '';
+    // let content = '';
+    // let imageName = '';
+    // let imagePath = '';
+    // let location = '';
+    // let shopId = '';
+    // let tourPrice = '';
+    //
+    // if (resultQue && resultQue.shop) {
+    //     tourTitle = resultQue.shop.tourTitle;
+    //     content = resultQue.shop.content;
+    //     imageName = resultQue.shop.imageName;
+    //     imagePath = resultQue.shop.imagePath;
+    //     location = resultQue.shop.location;
+    //     shopId = resultQue.shop.shopId;
+    //     tourPrice = resultQue.shop.tourPrice;
+    // }
 
     const [upDateTX, setUpDateTX] = useState(true);
     const [upTitle, setUpTitle] = useState("");
@@ -115,7 +141,7 @@ function TourshopDetail(props) {
                                                             </span>
                                                         </h3>
                                                         <div style={{ textAlign: "right", width: "100%", paddingRight: "10%" }}>
-                                                            <h6>boarddetail 작성자/조회수/좋아요</h6>
+                                                            {/*<h6>boarddetail 작성자/조회수/좋아요</h6>*/}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -130,7 +156,7 @@ function TourshopDetail(props) {
                                             <section className={styles.singleWebsite} style={{ textAlign: "left" }}>
                                                 <div className={styles.container}>
                                                     <div className={styles.singleWebsiteWrapper}>
-                                                        <h4>{resultQue.shop.shopId}</h4>
+                                                        {/*<h4>{resultQue.shop.shopId}</h4>*/}
                                                         {resultQue.shop.imageName.split(";").length === 1 ? (
                                                             <img alt="img" src={`${props.imgURLJ}/${resultQue.shop.imageName.split(";")[0]}`} style={{ display: "block", margin: "0 auto" }} />
                                                         ) : (
@@ -152,7 +178,7 @@ function TourshopDetail(props) {
                                                                 margin: "0.5em",
                                                                 paddingBottom: "1em",
                                                                 borderBottom: "1px solid #ccc"
-                                                            }}>게시글</h5>
+                                                            }}>행사내용</h5>
                                                             {upDateTX ? resultQue.shop.content : (
                                                                 <textarea style={{ width: "100%", height: "80%" }} onChange={(e) => setUpText(e.target.value)} value={upText}></textarea>
                                                             )}
@@ -288,7 +314,7 @@ function TourshopDetail(props) {
 
                                                 <div className="comment-form" style={{display: "flex", width:"100%", margin:"1%"}}>
                                                     <textarea className="comment-input" name="content" rows="2" style={{width:"80%", marginLeft:"5%"}}
-                                                              placeholder={props.loginId + "님 댓글을 남겨보세요."}
+                                                              placeholder={props.loginId + "님 리뷰를 남겨남겨주세요!"}
                                                               value={reviewTX}
                                                               required onChange={(e)=> setReviewTX(e.target.value)}>
                                                         {reviewTX}<br/>

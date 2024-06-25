@@ -20,7 +20,7 @@ public interface TourShopMapper {
 
     List<Tourshop> shopDetail(String id);
 
-//    List<TourshopReview> shopDetailReview(String id);
+    List<TourshopReview> shopDetailReview(String id);
 
 //    boolean shopDeletereview(String id);
     boolean shopDelete(String id);

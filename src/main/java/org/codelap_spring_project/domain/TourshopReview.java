@@ -6,21 +6,21 @@ public class TourshopReview {
 
     private String reviewId;
     private String shopId;
-    private String content;
+    private String review;
     private String author;
-    private String create_at;
+    private String created_at;
     private String parent_comment_id;
 
     private List<TourshopReview> children;
 
     public TourshopReview(){}
 
-    public TourshopReview(List<TourshopReview> children, String reviewId, String shopId, String content, String author, String create_at, String parent_comment_id) {
+    public TourshopReview(List<TourshopReview> children, String reviewId, String shopId, String review, String author, String created_at, String parent_comment_id) {
         this.reviewId = reviewId;
         this.shopId = shopId;
-        this.content = content;
+        this.review = review;
         this.author = author;
-        this.create_at = create_at;
+        this.created_at = created_at;
         this.parent_comment_id = parent_comment_id;
         this.children = children;
     }
@@ -49,12 +49,12 @@ public class TourshopReview {
         this.shopId = shopId;
     }
 
-    public String getContent() {
-        return content;
+    public String getReview() {
+        return review;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setReview(String review) {
+        this.review = review;
     }
 
     public String getAuthor() {
@@ -66,11 +66,11 @@ public class TourshopReview {
     }
 
     public String getCreate_at() {
-        return create_at;
+        return created_at;
     }
 
     public void setCreate_at(String create_at) {
-        this.create_at = create_at;
+        this.created_at = create_at;
     }
 
     public String getParent_comment_id() {
