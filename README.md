@@ -156,9 +156,7 @@
 ---
 
 ### DB 테이블
-![텍스트](KakaoTalk_20240507_130147815.png)
-![텍스트](KakaoTalk_20240507_130213761.png)
-![텍스트](KakaoTalk_20240507_130225801.png)
+![테이블](https://github.com/JUNGSEUNGKIM/codelap_project_4_Spring_React/assets/154941779/35a69b3a-6855-4026-9506-c55911206ad1)
 ---
 
 ### 주요기능 
