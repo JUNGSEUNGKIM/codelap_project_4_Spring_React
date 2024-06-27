@@ -107,6 +107,8 @@ function Festival(props) {
     useEffect(() => {
         if (selectedZone) {
             // Do something when selectedZone changes
+        }else{
+            setSelectedZone('서울')
         }
 
         if (!isLoading && !isError) {

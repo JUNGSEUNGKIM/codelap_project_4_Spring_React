@@ -21,7 +21,7 @@ import  {useNavigate, useParams} from "react-router-dom";
     const loginFunction =  ()=>{
         console.log("버튼 ")
         // axios.post(props.serverURL+'/svlogin', formData,{withCredentials: true})
-        axios.post("http://localhost:8081/user"+'/svlogin', formData,{withCredentials: true})
+        axios.post(props.javaServer+'user/svlogin', formData,{withCredentials: true})
             .then(res=>{
                 console.log('데이터 전송 성공:', res);
 

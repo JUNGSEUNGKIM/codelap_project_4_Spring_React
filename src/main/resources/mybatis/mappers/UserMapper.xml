@@ -10,4 +10,9 @@
         FROM users where id=#{id} and password=#{password}
     </select>
 
+    <insert id="signup" parameterType="org.codelap_spring_project.domain.UserInfo">
+        INSERT INTO users (ID, PASSWORD, NAME, GENDER, BIRTH, NICKNAME, locationX, locationY, TAGFAMILY, TAGLIKE)
+        VALUES (#{id}, #{password}, #{name}, #{gender}, to_date(#{birth},'YYYY-MM-DD'), #{nickname}, #{locationX},#{locationY}, #{tagFamily}, #{tagLike})
+    </insert>
+
 </mapper>

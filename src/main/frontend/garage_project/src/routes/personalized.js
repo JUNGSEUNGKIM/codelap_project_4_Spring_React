@@ -95,6 +95,10 @@ function Personalized(props) {
         handleSubmit();
         randomRecommend();
         getCurrentLocation();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // 부드럽게 스크롤
+        });
 
 
 

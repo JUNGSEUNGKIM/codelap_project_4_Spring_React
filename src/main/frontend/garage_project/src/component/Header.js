@@ -88,7 +88,12 @@ function Header(props) {
                         <a onClick={()=>{
                           scrollToTop()
                           toggleButton?setToggleButton(false):setToggleButton(true)
-                          navigate('/personalized')}}>PERSONALIZED</a>
+                          if (props.isLoggedIn) {
+                            navigate('/personalized')
+                          } else {
+                            alert("로그인을 해주세요");
+                            navigate('/login');
+                          }}}>PERSONALIZED</a>
                       </li>
                       <li style={{ position: 'relative' ,zIndex: "999"}}>
                         <a onClick={() => {

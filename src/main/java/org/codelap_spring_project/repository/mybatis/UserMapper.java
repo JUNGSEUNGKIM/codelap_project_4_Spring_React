@@ -8,4 +8,6 @@ public interface UserMapper {
 
     public UserInfo checkedUser(UserInfo userInfo);
 
+    Boolean signup(UserInfo userInfo);
+
 }

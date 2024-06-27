@@ -59,7 +59,7 @@ export default class SimpleSlider extends Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             arrows: true,
-            centerMode: true,
+            centerMode: false,
             initialSlide: currentIndex,
             ref: (slider) => { this.slider = slider; } // 슬라이더 인스턴스 참조
         };
