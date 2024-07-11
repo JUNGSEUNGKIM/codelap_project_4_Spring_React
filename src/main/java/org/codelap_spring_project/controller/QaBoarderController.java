@@ -1,18 +1,21 @@
 package org.codelap_spring_project.controller;
 
+import jakarta.validation.Valid;
 import org.codelap_spring_project.domain.*;
 import org.codelap_spring_project.repository.mybatis.QaBoarderMapper;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.*;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.*;
-
 
 
 @RestController
@@ -35,7 +38,8 @@ public class QaBoarderController {
 
     @GetMapping(value={"/svqaboardmain?page", "/svqaboardmain", "svqaboardmain/", "/svquestionboardmain?user_id"})
     public Map<String, Object> list(Model model, @RequestHeader("Authorization") String token, @RequestParam(required = false, defaultValue = "1") String page){
-        String userId = jwtTokenProvider.getid(token);
+        String userId = "admin";
+//        String userId = jwtTokenProvider.getid(token);
         int currentPage = 1;
         if(page != null){
             System.out.println("::::::insert" + page);
@@ -49,8 +53,9 @@ public class QaBoarderController {
         int startRow = (currentPage -1) * postPerPage +1;
         int endRow = currentPage * postPerPage;
 
-        List<QaBoarderMain> qaboarders;
-        qaboarders = qaboarderMapper.findAll(startRow, endRow);
+        List<QaBoarderMain> qaboarders = qaboarderMapper.findAll(startRow, endRow);
+
+        System.out.println("::::  아이디"+qaboarders.get(0).getQaid());
         List<List<String>> qaboarderList = new ArrayList<>();
 
         for (QaBoarderMain qaboarder : qaboarders){
@@ -94,8 +99,8 @@ public class QaBoarderController {
             qaid = id;
         }
         Map<String, Object> data = new HashMap<>();
-        List<QaBoarder> qaboardResult = qaboarderMapper.detailQaBoard(id);
-        List<QaComment> qaboardcommentResult = qaboarderMapper.detailQaBoardComment(id);
+        List<QaBoarder> qaboardResult = qaboarderMapper.detailQaBoard(qaid);
+        List<QaComment> qaboardcommentResult = qaboarderMapper.detailQaBoardComment(qaid);
         List<QaComment> qacomments = new ArrayList<>();
         Map<String, QaComment> qacommentMap = new HashMap<>();
 
@@ -114,6 +119,7 @@ public class QaBoarderController {
 
                 childComment.add(row);
                 qacommentMap.get(parentId).setChildren(childComment);
+//                System.out.println("::::::: 답글?"+childComment);
             }
         }
         System.out.println(qacomments);
@@ -126,9 +132,9 @@ public class QaBoarderController {
 
     @GetMapping("/svqaboarddelete/{id}")
     public Map<String, Boolean> deleteQaBoard(@PathVariable String id){
-        String postId = id;
+//        String postId = id;
         qaboarderMapper.deleteQaBoardComment(id);
-
+        System.out.println(":::::::: 댓글 아이디"+qaboarderMapper.deleteQaBoardComment(id));
         boolean result = qaboarderMapper.deleteQaBoard(id);
         Map<String, Boolean> resultMe = new HashMap<>();
         resultMe.put("result", result);
@@ -137,7 +143,8 @@ public class QaBoarderController {
 
     @PostMapping("/svqacreate")
     public String createQaBoard(@RequestParam("files") MultipartFile[] files, @RequestHeader("Authorization") String token, @Valid @ModelAttribute QaBoarderInsert qaboarder, @RequestParam("festival_code") String festivalId) throws IOException, SQLException{
-        System.out.println(token);
+        System.out.println("::::::::::::::::::::::::"+qaboarder.getContent());
+
         String userId = jwtTokenProvider.getid(token);
         qaboarder.setUserid(userId);
         List<String> imagePaths = new ArrayList<>();
@@ -151,13 +158,21 @@ public class QaBoarderController {
         }
         String combinedImageNames = String.join(";", imageNames);
         String combinedImagePaths = String.join(";", imagePaths);
+        System.out.println(qaboarder.getUserid());
 
         String qaid = qaboarderMapper.getQaSequence();
 
         qaboarder.setQaid(qaid);
         qaboarder.setImagename(combinedImageNames);
         qaboarder.setImagepath(combinedImagePaths);
-
+        qaboarder.setFestivalid(festivalId);
+        System.out.println("::::::::::::::::::::::::"+qaboarder.getImagename());
+        System.out.println("::::::::::::::::::::::::"+qaboarder.getImagepath());
+        System.out.println("::::::::::::::::::::::::"+qaboarder.getTitle());
+        System.out.println("::::::::::::::::::::::::"+qaboarder.getQaid());
+        System.out.println("::::::::::::::::::::::::"+qaboarder.getContent());
+        System.out.println("::::::::::::::::::::::::"+qaboarder.getFestivalid());
+//        qaboarder.setFestivalid("22");
         qaboarderMapper.createQaBoard(qaboarder);
         return "OK";
     }
@@ -185,8 +200,8 @@ public class QaBoarderController {
 
     @PostMapping("/svqaboardedit")
     public Map<String, Boolean> editQaBoard(@Valid @RequestBody QaBoarderInsert qaboarder){
-
-        boolean result = qaboarderMapper.editBoarder(qaboarder);
+        boolean result = qaboarderMapper.editQaBoard(qaboarder);
+        System.out.println(result);
 
         Map<String, Boolean> resultMSG = new HashMap<>();
         resultMSG.put("result", result);
@@ -195,13 +210,22 @@ public class QaBoarderController {
 
     @PostMapping("/svqaaddcomment")
     public Map<String, Boolean> addQaComment(@Valid @RequestBody QaCommentInsert qacomment){
-        System.out.println(qacomment.getContent() + qacomment.getQaid() + qacomment.getUserid());
+        System.out.println("Received qacomment: " + qacomment);
+        System.out.println("Parent Comment ID: " + qacomment.getParentcommentid());
+        System.out.println("::::::::::::댓글 내용 + 댓글 코드 + 유저아이디 + 패런트코멘트아이디 : "+ qacomment.getContent() + qacomment.getQaid() + qacomment.getUserid() + qacomment.getParentcommentid());
         qacomment.setParentcommentid("");
         if(qacomment.getQacommentid() != null){
             qacomment.setParentcommentid(qacomment.getQacommentid());
+            System.out.println("getQacommentid:: "+qacomment.getQacommentid());
+//            System.out.println(qacomment.parentcommentid);
             qacomment.setQacommentid("");
         }
-
+        System.out.println(qacomment);
+        System.out.println(qacomment.getQaid()+"::::::id");
+        System.out.println(qacomment.getContent()+"::::::id");
+        System.out.println(qacomment.getUserid()+"::::::id");
+//        System.out.println(qacomment.getQaid()+"::::::id");
+//        System.out.println(qacomment.getQaid()+"::::::id");
         boolean result = qaboarderMapper.addqacomment(qacomment);
 
         Map<String, Boolean> resultMSG = new HashMap<>();
@@ -213,9 +237,13 @@ public class QaBoarderController {
     @PostMapping({"/sveditqacomment", "/sveditqacomment/", "/sveditqacomment/{id}"})
     public Map<String, Boolean> editQaComment(@Valid @RequestBody QaCommentInsert qacomment, @PathVariable String id){
         qacomment.setQacommentid(id);
-        System.out.println(qacomment.getQacommentid() + qacomment.getContent());
+        System.out.println(":::::: 댓글 유저 아이디: "+ qacomment.getUserid());
+        System.out.println(":::::::: 수정댓글 내용: "+ qacomment.getContent());
+        System.out.println("::::::::: 댓글수정 게시판 아이디: "+qacomment.getQaid());
+        System.out.println("::::::: 댓글 수정 댓글 아이디: "+qacomment.getQacommentid());
+        System.out.println(":::::댓글 아이디 + 댓글 내용:  "+qacomment.getQacommentid() + qacomment.getContent());
         boolean result = qaboarderMapper.editqacomment(qacomment);
-
+//        qacomment.setContent(qacomment.getContent());
         Map<String, Boolean> resultMSG = new HashMap<>();
         resultMSG.put("result", result);
 
@@ -225,6 +253,7 @@ public class QaBoarderController {
     @PostMapping("/svdeleteqacomment/{qacommentid}")
     public Map<String, Boolean> deleteQaComment(@PathVariable String qacommentid,
                                                 @RequestParam(required = false, defaultValue = "1") String qaid){
+//        System.out.println(qacommentid);
         boolean result = qaboarderMapper.deleteqacomment(qacommentid);
         System.out.println(result);
 

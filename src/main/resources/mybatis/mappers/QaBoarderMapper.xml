@@ -41,7 +41,7 @@
         <result property="festivalid" column="festivalid" />
     </resultMap>
 
-    <select id="findAll" resultMap="qaboarderResultMap">
+    <select id="findAll" resultType="org.codelap_spring_project.domain.QaBoarderMain">
         <![CDATA[ SELECT
             qaid, title, author, to_char(created_at, 'YYYY-MM-DD') as created_at, views, likes, content, imagename,
             (SELECT COUNT(*) FROM qacomment qc WHERE qc.qaid = q.qaid) AS qacomments_count
@@ -49,13 +49,13 @@
                  SELECT
                     q.qaid, q.title, u.id AS author, q.created_at, q.views, q.likes, q.content, q.imagename,
                     ROW_NUMBER() OVER (]]>
-                    <if test="startRow != -1">
-                    <![CDATA[ ORDER BY q.created_at DESC]]>
-                    </if>
-                    <if test = "startRow == -1">
-                        <![CDATA[ ORDER BY q.likes DESC]]>
-                    </if>
-                    <![CDATA[ ) AS rn
+        <if test="startRow != -1">
+            <![CDATA[ ORDER BY q.created_at DESC]]>
+        </if>
+        <if test = "startRow == -1">
+            <![CDATA[ ORDER BY q.likes DESC]]>
+        </if>
+        <![CDATA[ ) AS rn
                     FROM qa q
                             JOIN USERS u ON q.userid = u.id
                     WHERE 1=1) q
@@ -67,23 +67,23 @@
     </select>
 
     <select id="detailQaBoard" parameterType="String" resultMap="qaboarderResultMap">
-       SELECT q.qaid, q.title, u.id AS author, q.content, TO_CHAR(q.created_at, 'YYYY-MM-DD') AS created_at,
-              q.views, q.likes, q.image_path, q.image_name, f.festivalname
-       FROM QA q
-            JOIN USERS u ON q.userid = u.id
-            JOIN FESTIVALS f on q.festivalid = f.festivalid
-       WHERE q.qaid = #{id}
+        SELECT q.qaid, q.title, u.id AS author, q.content, TO_CHAR(q.created_at, 'YYYY-MM-DD') AS created_at,
+               q.views, q.likes, q.imagepath, q.imagename, f.festivalname
+        FROM QA q
+                 JOIN USERS u ON q.userid = u.id
+                 JOIN FESTIVALS f on q.festivalid = f.festivalid
+        WHERE q.qaid = #{qaid}
     </select>
 
     <select id="detailQaBoardComment" parameterType="String" resultMap="qacommentResultMap">
-        SELECT qc.qacommentid, qc.qaid, qc.content, u.id AS author, TO_CHAR(qc.create_at, 'YYYY-MM-DD HH:MM') AS create_at, qc.parentcommentid
+        SELECT qc.qacommentid, qc.qaid, qc.content, u.id AS author, TO_CHAR(qc.created_at, 'YYYY-MM-DD HH:MM') AS create_at, qc.parentcommentid
         FROM qacomment qc
-                JOIN users u ON qc.userid = u.id
+                 JOIN users u ON qc.userid = u.id
         WHERE qc.qaid = #{id}
         ORDER BY qc.qacommentid
     </select>
 
-    <delete id="deleteQaComment" parameterType="String">
+    <delete id="deleteQaBoardComment" parameterType="String">
         DELETE FROM qacomment WHERE qaid = #{id}
     </delete>
 
@@ -101,16 +101,18 @@
     </insert>
 
     <update id="editQaBoard" parameterType="org.codelap_spring_project.domain.QaBoarderInsert">
-        UPDATE qaboarder SET title = #{title}, content = #{content} WHERE qaid = #{qaid}
+        UPDATE qa SET title = #{title}, content = #{content} WHERE qaid = #{qaid}
     </update>
 
-    <insert id="addQaComment" parameterType="org.codelap_spring_project.domain.QaCommentInsert">
-        INSERT INTO QACOMMENT (qacommentid, qaid, userid,created_at, content, parentcommentid, festivalid)
-        VALUES (QACOMMENTID_SEQ.nextval, #{qaid}, #{userid}, #{created_at}, #{content}, #{parentcommentid}, #{festivalid})
+    <insert id="addqacomment" parameterType="org.codelap_spring_project.domain.QaCommentInsert">
+        INSERT INTO QACOMMENT (qacommentid, qaid, userid, content, parentcommentid)
+        VALUES (QACOMMENTID_SEQ.nextval, #{qaid}, #{userid}, #{content}, #{parentcommentid})
     </insert>
 
-    <update id="editQaComment" parameterType="org.codelap_spring_project.domain.QaCommentInsert">
-        UPDATE QACOMMNET SET content = #{content} WHERE qacommentid = #{qacommentid}
+    <update id="editqacomment">
+        UPDATE qacomment
+        SET content = #{content}
+        WHERE qacommentid = #{qacommentid}
     </update>
 
     <delete id="deleteqacomment" parameterType="String">

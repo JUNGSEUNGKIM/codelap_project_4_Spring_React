@@ -26,7 +26,7 @@ public interface QaBoarderMapper {
 
     void createQaBoard(QaBoarderInsert qaboarder);
 
-    boolean editBoarder(QaBoarderInsert qaboarder);
+    boolean editQaBoard(QaBoarderInsert qaboarder);
 
     boolean addqacomment (QaCommentInsert qacomment);
 

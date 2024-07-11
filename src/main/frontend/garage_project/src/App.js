@@ -22,7 +22,9 @@ import FestivalDetails from "./routes/FestivalDetails"
 import EventDetails from "./routes/EventDetails";
 import TourShop from "./routes/TourShop";
 import TourshopDetail from "./routes/TourshopDetail";
-
+import QaCreate from "./routes/qaCreate";
+import QaBoarder from "./routes/QaBoarder";
+import QaBoarddetail from "./routes/QaBoarddetail";
 
 import axios from "axios";
 import {useQuery} from "react-query";
@@ -36,7 +38,7 @@ function App() {
     const [serverURL, setServerURL] = useState('http://192.168.0.23:3000');
     const [imgURL, setImgURL] = useState('http://192.168.0.23:3000/uploads')
     // const [serverURL, setServerURL] = useState('http://192.168.0.23:3000');
-    const [apiURL, setApiURL] = useState('http://localhost:5000');
+    const [apiURL, setApiURL] = useState('http://127.0.0.1:5000');
     // const [imgURL, setImgURL] = useState('http://192.168.0.23:3000/uploads')
     // const [serverURL, setServerURL] = useState('http://3.143.252.195:3000');
     // const [apiURL, setApiURL] = useState('http://3.143.252.195:5000');
@@ -45,6 +47,8 @@ function App() {
     // const [apiURL, setApiURL] = useState('http://localhost:5000');
     // const [imgURL, setImgURL] = useState('http://localhost:3000/uploads')
     // const [imgURL, setImgURL] = useState('')
+    // const [javaServer, setJavaServer] = useState('http://192.168.0.144:8081/')
+    // const [imgURLJ, setImgURLJ] = useState('http://192.168.0.144:8081/uploads')
     const [javaServer, setJavaServer] = useState('http://localhost:8081/')
     const [imgURLJ, setImgURLJ] = useState('http://localhost:8081/uploads')
     const [token, setToken] = useState("");
@@ -83,6 +87,10 @@ function App() {
               <Route path={"/shopdetail/:code"} element={<TourshopDetail token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               <Route path={"/festivaldetails/:FestivalID"} element={<FestivalDetails token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
               <Route path={"/eventdetails/:EVENTID"} element={<EventDetails  token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
+              <Route path={"/qaboarder"} element={<QaBoarder token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
+              <Route path={"/svqacreate"} element={<QaCreate token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
+              <Route path={"/svqaboarddetail/:code"} element={<QaBoarddetail token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
+
           </Routes>
           <ChatBotPage/>
           <Footer/>

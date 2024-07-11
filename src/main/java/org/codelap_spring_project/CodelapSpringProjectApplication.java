@@ -15,11 +15,12 @@ public class CodelapSpringProjectApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CodelapSpringProjectApplication.class, args);
-        String pythonExecutable = "C:\\Users\\EZEN\\anaconda3\\python.exe";
-        // 파이썬 스크립트 파일 경로
-        String pythonScript = "src/main/java/org/codelap_spring_project/python/chat_server.py";
-
-        // 외부 프로세스 실행하여 파이썬 스크립트 실행
+//        String pythonExecutable = "/opt/anaconda3/bin/python3";
+////        String pythonExecutable = "C:\\Users\\EZEN\\anaconda3\\python.exe";
+//        // 파이썬 스크립트 파일 경로
+//        String pythonScript = "src/main/java/org/codelap_spring_project/python/chat_server.py";
+//
+//        // 외부 프로세스 실행하여 파이썬 스크립트 실행
 //        try {
 //            ProcessBuilder processBuilder = new ProcessBuilder(pythonExecutable, pythonScript);
 //            processBuilder.redirectErrorStream(true);

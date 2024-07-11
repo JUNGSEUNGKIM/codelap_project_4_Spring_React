@@ -95,10 +95,6 @@ function Personalized(props) {
         handleSubmit();
         randomRecommend();
         getCurrentLocation();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // 부드럽게 스크롤
-        });
 
 
 
@@ -107,7 +103,7 @@ function Personalized(props) {
     async function handleSubmit(){
             try {
                 console.log("userid::::::::::"+props.loginId)
-                const response = await axios.get('http://localhost:5000/recommendation'
+                const response = await axios.get('http://127.0.0.1:5000/recommendation'
                     // ,{params: {user_id : props.loginId}}
                     ,{params: {user_id : 'admin'}}
                     ,{ withCredentials: true },{

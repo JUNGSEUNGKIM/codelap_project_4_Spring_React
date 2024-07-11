@@ -107,8 +107,6 @@ function Festival(props) {
     useEffect(() => {
         if (selectedZone) {
             // Do something when selectedZone changes
-        }else{
-            setSelectedZone('서울')
         }
 
         if (!isLoading && !isError) {
@@ -183,7 +181,7 @@ function Festival(props) {
 
                     <div className={styles.info_box}>
                         <div id={styles.info_slide}>
-                            <FestivalSlider myProp={festivals} imgURL={props.imgURL} />
+                            <FestivalSlider myProp={festivals} imgURL={props.imgURLJ} />
                             {/*{console.log("Prop확인::::",festivals)}*/}
                         </div>
                     </div>

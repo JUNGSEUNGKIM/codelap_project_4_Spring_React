@@ -30,8 +30,7 @@ function Borader(props){
         const fetchData = async () => {
             try {
                 const [response] = await Promise.all([
-                    axios.get(props.javaServer + 'boarder/svboar' +
-                        'dmain'+params,{headers: {
+                    axios.get(props.javaServer + 'boarder/svboardmain'+params,{headers: {
                             Authorization: props.token
                         }}, { withCredentials: true })
                 ]);

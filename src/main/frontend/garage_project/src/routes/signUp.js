@@ -14,10 +14,10 @@ function SignUp(props) {
         nickname:'',
         gender:'',
         birth:'',
-        locationx:'',
-        locationy:'',
-        tagfamily:'',
-        taglike:'',
+        locationX:'',
+        locationY:'',
+        tagFamily:'',
+        tagLike:'',
 
     });
 
@@ -46,24 +46,24 @@ function SignUp(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         let updatedFormData = { ...formData };
-        let taglike = '';
-        if(formData.taglike.length>0) {
-            for (let i = 0; i < formData.taglike.length; i++) {
-                taglike = taglike + ',#' + formData.taglike[i];
+        let tagLike = '';
+        if(formData.tagLike.length>0) {
+            for (let i = 0; i < formData.tagLike.length; i++) {
+                tagLike = tagLike + ',#' + formData.tagLike[i];
             }
-            updatedFormData.taglike= taglike.substr(1);
+            updatedFormData.tagLike= tagLike.substr(1);
         }
         let tagFamily = '';
-        if(formData.tagfamily.length>0) {
-            for (let i = 0; i < formData.tagfamily.length; i++) {
-                tagFamily = tagFamily + ',#' + formData.tagfamily[i];
+        if(formData.tagFamily.length>0) {
+            for (let i = 0; i < formData.tagFamily.length; i++) {
+                tagFamily = tagFamily + ',#' + formData.tagFamily[i];
             }
-            updatedFormData.tagfamily= tagFamily.substr(1);
+            updatedFormData.tagFamily= tagFamily.substr(1);
         }
         setFormData(updatedFormData)
         console.log(updatedFormData);
         // Axios를 사용하여 POST 요청 보내기
-        axios.post(props.javaServer+'user/signup', updatedFormData)
+        axios.post(props.serverURL+'/signup', updatedFormData)
             .then(response => {
                 console.log('데이터 전송 성공:', response);
                 if(response.data.result){
@@ -77,30 +77,13 @@ function SignUp(props) {
                 // navigate('/login');
                 // 오류 처리를 여기에 작성
             });
-
-        axios.post('http://localhost:5000/usercosineupdate', updatedFormData)
-            .then(response => {
-                console.log('데이터 전송 성공:', response);
-                if(response.data.result){
-                    // navigate('/login');
-                    console.log(response)
-                }
-                // 성공적으로 데이터를 전송한 후 할 일을 여기에 작성
-            })
-            .catch(error => {
-                console.error('데이터 전송 실패:', error);
-                alert("회원가입에 실패하였습니다. 다시 입력해주세요")
-                // navigate('/login');
-                // 오류 처리를 여기에 작성
-            });
-
     };
     const getCurrentLocationSU = ()=>{
         navigator.geolocation.getCurrentPosition((position) => {
             setFormData({
                 ...formData,
-                locationx:position.coords.latitude,
-                locationy:position.coords.longitude
+                locationX:position.coords.latitude,
+                locationY:position.coords.longitude
 
             });
 
@@ -195,25 +178,25 @@ function SignUp(props) {
                                                 <div className={styles.checkBoxContainer}>
                                                     <label> WHO"S TOGETHER</label>
                                                     <div className={styles.checkBoxDiv} ><label>가족(유아)</label><input
-                                                        type="checkbox" name="tagfamily" value="가족(유아)" onChange={handleChange}/></div>
+                                                        type="checkbox" name="tagFamily" value="가족(유아)" onChange={handleChange}/></div>
                                                     <div className={styles.checkBoxDiv}><label>부부/연인</label><input
-                                                        type="checkbox" name="tagfamily" value="부부/연인" onChange={handleChange}/></div>
+                                                        type="checkbox" name="tagFamily" value="부부/연인" onChange={handleChange}/></div>
                                                     <div className={styles.checkBoxDiv}><label>반려동물</label><input
-                                                        type="checkbox" name="tagfamily" value="반려동물" onChange={handleChange}/></div>
+                                                        type="checkbox" name="tagFamily" value="반려동물" onChange={handleChange}/></div>
                                                     <div className={styles.checkBoxDiv}><label>혼자</label><input
-                                                        type="checkbox" name="tagfamily" value="혼자" onChange={handleChange}/></div>
+                                                        type="checkbox" name="tagFamily" value="혼자" onChange={handleChange}/></div>
 
                                                 </div>
                                                 <div className={styles.checkBoxContainer}>
                                                     <label> LIKE TAG</label>
                                                     <div className={styles.checkBoxDiv}><label>사진</label><input
-                                                        type="checkbox" name="taglike" value="사진" onChange={handleChange}/></div>
+                                                        type="checkbox" name="tagLike" value="사진" onChange={handleChange}/></div>
                                                     <div className={styles.checkBoxDiv}><label>맛집</label><input
-                                                        type="checkbox" name="taglike" value="맛집" onChange={handleChange}/></div>
+                                                        type="checkbox" name="tagLike" value="맛집" onChange={handleChange}/></div>
                                                     <div className={styles.checkBoxDiv}><label>체험</label><input
-                                                        type="checkbox" name="taglike" value="체험" onChange={handleChange}/></div>
+                                                        type="checkbox" name="tagLike" value="체험" onChange={handleChange}/></div>
                                                     <div className={styles.checkBoxDiv}><label>자연</label><input
-                                                        type="checkbox" name="taglike" value="자연" onChange={handleChange}/></div>
+                                                        type="checkbox" name="tagLike" value="자연" onChange={handleChange}/></div>
 
                                                 </div>
 
