@@ -92,7 +92,7 @@ function App() {
               <Route path={"/svqaboarddetail/:code"} element={<QaBoarddetail token={token} imgURLJ={imgURLJ} javaServer={javaServer} imgURL={imgURL} serverURL={serverURL} isLoggedIn={isLoggedIn} loginId={loginId} apiUrl={apiURL}/>}/>
 
           </Routes>
-          <ChatBotPage/>
+          <ChatBotPage apiURL={apiURL}/>
           <Footer/>
           </React.Fragment>
           {/*)}*/}

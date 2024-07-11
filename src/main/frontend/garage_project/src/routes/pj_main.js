@@ -6,11 +6,11 @@ import  {useNavigate, useParams} from "react-router-dom";
 
 const defaultImageUrl = 'https://www.eclosio.ong/wp-content/uploads/2018/08/default.png';
 const defaultImageUrlF = ['https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=82d75629-ca89-4d4d-85b9-5e8dae133e20&mode=raw',
-                        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=cb5ab904-aa43-45c2-a5fe-ff79102b1cf7&mode=raw',
-                        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=03701c87-65be-4ec7-b039-50a9c9bda2e7&mode=raw',
-                        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=7f000536-86d0-4a58-8aca-c65e2b97f32c&mode=raw',
-                        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=9cf52ccf-0692-4854-81a2-6c87f8a6d6f5&mode=raw',
-                        'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=a310b6d9-a396-419b-9534-8aa6efe30f2c&mode=raw']
+    'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=cb5ab904-aa43-45c2-a5fe-ff79102b1cf7&mode=raw',
+    'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=03701c87-65be-4ec7-b039-50a9c9bda2e7&mode=raw',
+    'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=7f000536-86d0-4a58-8aca-c65e2b97f32c&mode=raw',
+    'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=9cf52ccf-0692-4854-81a2-6c87f8a6d6f5&mode=raw',
+    'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=a310b6d9-a396-419b-9534-8aa6efe30f2c&mode=raw']
 // items.push( 'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=82d75629-ca89-4d4d-85b9-5e8dae133e20&mode=raw',main:'소희왕자 진자 멋있다',text:'특별한 체험이 있는 서울 고궁 야간개장',text1:'자세히 보기' })
 // items.push( { id: i, url: 'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=cb5ab904-aa43-45c2-a5fe-ff79102b1cf7&mode=raw',main:'데뷔 단체 사진',text:'특별한 체험이 있는 서울 고궁 야간개장',text1:'자세히 보기' })
 // items.push( { id: i, url: 'https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=03701c87-65be-4ec7-b039-50a9c9bda2e7&mode=raw',main:'LOVE119' ,text:'특별한 체험이 있는 서울 고궁 야간개장',text1:'자세히 보기'  })
@@ -291,13 +291,13 @@ const PJmain = (props) => {
         let interval;
         const timer = setTimeout(() => {
             getCurrentLocation();
-             interval = setInterval(() => {
+            interval = setInterval(() => {
                 getCurrentLocation();
-             }, 3000);
+            }, 3000);
             return (() => {
-                           clearInterval(interval)
-                            clearTimeout(timer)
-                                                    });
+                clearInterval(interval)
+                clearTimeout(timer)
+            });
         },);
         return (()=>{
             clearInterval(interval);
