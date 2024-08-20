@@ -1,4 +1,4 @@
-## 프로젝트 페이지로 이동 = > &nbsp;&nbsp;&nbsp;&nbsp; [Project page](http://54.180.140.137:8081)
+## 프로젝트 페이지로 이동 = > &nbsp;&nbsp;&nbsp;&nbsp; [Project GARAGE](http://54.180.140.137:8081)
 ## 목차    
 
 ### -팀원소개   
