@@ -4,11 +4,11 @@
     
  |  이름  | 백엔드(주요 프레임워크) | 개발환경 | DataBase | 프론트엔드 
 |--------|---------------------|-------------------------------|-----------------------------|-----------------------------|
-| 김정승 |    nodejs, Nginx, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
-| 노가현 |    nodejs, Nginx, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
-| 배호진 |    nodejs, Nginx, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
-| 배은지 |    nodejs, Nginx, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
-| 이은진 |    nodejs, Nginx, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
+| 김정승 |    Spring Boot, Apache, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
+| 노가현 |    Spring Boot, Apache, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
+| 배호진 |    Spring Boot, Apache, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
+| 배은지 |    Spring Boot, Apache, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
+| 이은진 |    Spring Boot, Apache, python    |    IntelliJ IDEA , vim , Pycharm     | oracle 11g | HTML, javascript, css, React|
 
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
